@@ -11,7 +11,7 @@ external wired (0.8 m) optical sensor.
 
 **Characteristics**
 - Modes: Heart Rate (HR) | SpO2 + HR | Off
-- Max display heart rate: 255 beats/sec
+- Max display heart rate: 255 beats/min
 - Max display SpO2: 99%
 - Power: max 5V DC, min 3V DC
 - Typical power consumption (HR mode): about 11 mA at 4.5V
@@ -21,7 +21,7 @@ external wired (0.8 m) optical sensor.
 - Sample rate: 50 samples/sec
 - UART output: 38400 Bd, 8 bits data, 2 stop bits, async, no parity
 - Sensor: MAX30102 (I2C address 0xAF+0xAE)
-- Screen driver: SSD1306 (I2C address 0x7B+0x7A)
+- Screen driver: SSD1306, 128x64 (I2C address 0x7B+0x7A)
 
 ## Usage
 Power up device or hold Button 1 down more than 3 sec. The display should blink
