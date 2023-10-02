@@ -3,23 +3,25 @@ Pulse oximeter
 is a DIY pulse oximeter that indirectly (by LED-powered sensors) monitors
 oxygen saturation of a patient's blood and monitors heart rate.
 
+![Oxy_p](drawings/oxy_p_logo.svg)
+
 ## About device
 Oxy_p has OLED display 0.96" (24 mm), 2 buttons, battery pack (3xAA) and
 external wired (0.8 m) optical sensor.
 
-Characteristics
-~ Modes: Heart Rate (HR) | SpO2 + HR | Off
-~ Max display heart rate: 255 beats/sec
-~ Max display SpO2: 99%
-~ Power: max 5V DC, min 3V DC
-~ Typical power consumption (HR mode): about 11 mA at 4.5V
-~ Power consumption in power-down: <0.5 uA at 4.5V
-~ Max single LED current: 51 mA (255 steps in 0.2 mA)
-~ Scale of the measurements: 2048 | 4096 | 8192 | 16384 nA
-~ Sample rate: 50 samples/sec
-~ UART output: 38400 Bd, 8 bits data, 2 stop bits, async, no parity
-~ Sensor: MAX30102 (I2C address 0xAF+0xAE)
-~ Screen driver: SSD1306 (I2C address 0x7B+0x7A)
+**Characteristics**
+- Modes: Heart Rate (HR) | SpO2 + HR | Off
+- Max display heart rate: 255 beats/sec
+- Max display SpO2: 99%
+- Power: max 5V DC, min 3V DC
+- Typical power consumption (HR mode): about 11 mA at 4.5V
+- Power consumption in power-down: <0.5 uA at 4.5V
+- Max single LED current: 51 mA (255 steps in 0.2 mA)
+- Scale of the measurements: 2048 | 4096 | 8192 | 16384 nA
+- Sample rate: 50 samples/sec
+- UART output: 38400 Bd, 8 bits data, 2 stop bits, async, no parity
+- Sensor: MAX30102 (I2C address 0xAF+0xAE)
+- Screen driver: SSD1306 (I2C address 0x7B+0x7A)
 
 ## Usage
 Power up device or hold Button 1 down more than 3 sec. The display should blink
@@ -224,9 +226,12 @@ data samples. Main flow of the output is raw LED sample data in hex format
 number will be sent via UART.
 
 Errors list:
-~ `!Ei` - error getting info/id from the sensor
-~ `!Ep` - error getting data pointers from the sensor
-~ `!Ed` - error getting sample data from the sensor
+
+`!Ei` - error getting info/id from the sensor
+
+`!Ep` - error getting data pointers from the sensor
+
+`!Ed` - error getting sample data from the sensor
 
 ## Parts, Circuit, Board
 Original DIY board and circuits from the `boards_and_circuits` dir,
@@ -238,33 +243,20 @@ Vector graphics editor: Inkscape v0.92
 
 **Parts:**
 - Sensor: module MAX30102 (includes MAX30102 IC, stabilizers, filters etc) x1
-
 - Display: module SSD1306 128x64, 22x11mm (includes SSD1306 controller + OLED 
 matrix, stabilizers, filters etc) x1
-
 - IC: ATmega88PA (TQFP) x1
-
 - Battery holder: 3x1.5 AA x1
-
 - Cable/wires: patch-cord 0.8m, 0.22mm2, stranded
-
 - Board: DIY PCB 50x25x1mm (see `oxy_p_main_board` dir in archives) x1
-
 - Sensor communication board: DIY PCB 35x15x1mm (see `pulse_sensor_board` dir
 in archives) x1
-
 - Programmer: DIY programmer for ATmega AVR (see avr_prog_gs in archives) x1
-
 - Capacitors: 0805 0.1u x2
-
 - Resistors: 0805 10k x3, 47k x1, 100k x1; 1206 0R x2
-
 - Transistors: SOT-23 p-n-p BC857C x1; SO-8 n-ch(2) IRF7103 x1
-
 - Diode: SS24 (1N5822) x1
-
 - Inductor: 10uH (100mA max) x1
-
 - Buttons: TL3342 x2
 
 # The name meaning
