@@ -1,0 +1,11 @@
+Screen elements:
+1. Photoplethysmogram
+2. Scale (no = 2048, empty = 4096, half-filled = 8192, full-filled = 16384 nA)
+3. LED "brightness" (current = value x 0.2 mA)
+4. 1/R
+5. Number of ready to read samples
+6. Instant heart rate, beats/min
+7. Battery voltage, volts
+8. Mode (filled = SpO2+HR, empty = HR)
+9. SpO2 value, %
+10. Averaged heart rate, beats/min

@@ -1,0 +1,523 @@
+#ifndef FONTS_SYMBOLS_H_INCLUDED
+#define FONTS_SYMBOLS_H_INCLUDED
+
+/*
+ * Glyphs and drawings for 1-bit displays.
+ * (SSD1306_display.c file, M20230827).
+ *
+ * Version: M20230827
+ */
+
+#include "b_easy_bits.h"
+#include <avr/pgmspace.h> // Do not load const to RAM
+
+#define DRAW_WIDTH_BITS 0 // Bit position for LSB of the width bits in the property byte.
+#define H_SYMM_BIT      7 // Horizontal symmetry bit in the property byte.
+#define H_SYMM (1 << H_SYMM_BIT) // Horizontal symmetry present
+#define DRAW_WIDTH_MASK b_0111_1111
+#define H_SYMM_MASK     b_1000_0000
+
+
+
+#define PX_IN_1BYTE 8 // Number of pixels in 1 byte
+#define GLYPH_SPACE_BITS 0 // Bit position for LSB of the spacing bits in the glyph spacing byte.
+#define GLYPH_SPACE_MASK b_0000_1111
+#define GLYPH_PAGES_BITS 4 // Bit position for LSB of the pages bits in the glyph spacing byte.
+#define GLYPH_PAGES_MASK b_0111_0000
+#define HEIGHT_SPACE_PX(height_px, spacing_px) (((height_px / PX_IN_1BYTE - 1) << GLYPH_PAGES_BITS) | spacing_px)
+
+/*
+ picture | display (Vertical GDDRAM access)
+ -----------------
+ bit 0   | row 0
+ bit 7   | row 7
+ byte 0  | column 0 (one page drawing)
+ byte 3  | column 3 (one page drawing)
+
+ Pictures naming: Acronim_HeightInPixels
+
+ One page (8px height) fonts, display example:
+
+bit
+0
+1    *   *   *  **    * ***  *  ***  *   *
+2   * * **  * *   *  ** *   *     * * * * *
+3   * *  *    * **  * * **  **   *   *  * *
+4   * *  *   *    * ***   * * * *   * *  **
+5   * *  *  *     *   *   * * * *   * *   *
+6    *  *** *** **    * **   *  *    *   *
+7
+    012 012 012 012 012 012 012 012 012 012
+    byte
+*/
+
+// Symmetrical pictures
+const unsigned char d08_8px[] PROGMEM = {
+    b_0011_1100, // "0", offset 2*0
+    b_0100_0010,
+    //b_0011_1100
+
+    b_0011_0100, // "8", offset 2*1
+    b_0100_1010
+    //b_0011_0100
+};
+
+// Only asymmetrical pictures (glyphs for "0" and "8" not included)
+const unsigned char d1to9_8px[] PROGMEM = {
+    b_0100_0100, // "1", offset 3*0
+    b_0111_1110,
+    b_0100_0000,
+
+    b_0110_0100, // "2", offset 3*1
+    b_0101_0010,
+    b_0100_1100,
+
+    b_0100_1010, // "3", offset 3*2
+    b_0100_1010,
+    b_0011_0100,
+
+    b_0001_1000, // "4", offset 3*3
+    b_0001_0100,
+    b_0111_1110,
+
+    b_0100_1110, // "5", offset 3*4
+    b_0100_1010,
+    b_0011_0010,
+
+    b_0011_1100, // "6", offset 3*5
+    b_0100_1010,
+    b_0011_0000,
+
+    b_0111_0010, // "7", offset 3*6
+    b_0000_1010,
+    b_0000_0110,
+
+    b_0000_1100, //! "9", offset 3*7
+    b_0101_0010,
+    b_0011_1100
+};
+
+// Table of the glyph pointers.
+// Each pointer points to the first byte of the corresponding glyph.
+// The table stored in RAM, but each pointer points to program memory.
+// The table size in RAM = pointer_size(16 bit) * number_of_entries.
+const unsigned char* glyph_8px_array_of_p[] = {
+    &d08_8px[2 * 0],   &d1to9_8px[3 * 0], &d1to9_8px[3 * 1],
+    &d1to9_8px[3 * 2], &d1to9_8px[3 * 3], &d1to9_8px[3 * 4],
+    &d1to9_8px[3 * 5], &d1to9_8px[3 * 6], &d08_8px[2 * 1],
+    &d1to9_8px[3 * 7]
+};
+
+// Table of the glyph properties
+// The property byte:
+// 0..6 bit -> full width in pixels (after draw);
+//    7 bit -> 1 when glyph has horizontal symmetry (0 - asymmetric).
+const unsigned char glyph_8px_prop[] PROGMEM = {
+    // 128 + draw_width (in pixels)
+    H_SYMM + 3, 3, 3, // 0, 1, 2,
+    3, 3, 3,          // 3, 4, 5,
+    3, 3, H_SYMM + 3, // 6, 7, 8,
+    3                 // 9
+};
+
+// Glyph spacing byte
+// Spacing/tracking (spacing between letters) in pixels +
+// glyph height in GDDRAM pages minus one (the "page_end" when "page_start" = 0):
+// 0..3 bit -> spacing in pixels; min = 0 px, max = 15 px;
+// 4..6 bit -> pages; glyph height in bytes - 1; 1 byte = 8 px; min = 0 (8 px), max = 7 (64 px);
+//    7 bit -> reserved.
+const unsigned char glyph_8px_spacing = HEIGHT_SPACE_PX(8, 1); // pages = 0, spacing = 1 px
+
+// Pointer to the glyph properties table
+const unsigned char* glyph_8px_prop_p = &glyph_8px_prop[0];
+
+// Pointer to the glyph spacing
+const unsigned char* glyph_8px_spacing_p = &glyph_8px_spacing;
+
+////////////////////////////////////////////////////////////////////////
+
+const unsigned char hearts_8px[] PROGMEM = {
+    b_0000_1110, // "heart", offset 0
+    b_0001_0001,
+    b_0010_0001,
+    b_0100_0010,
+    b_1000_0100,
+    //b_0100_0010,
+    //b_0010_0001,
+    //b_0001_0001,
+    //b_0000_1110
+
+    b_0000_1110, // "solid_heart", offset 5
+    b_0001_1111,
+    b_0011_1111,
+    b_0111_1110,
+    b_1111_1100,
+    //b_0111_1110,
+    //b_0011_1111,
+    //b_0001_1111,
+    //b_0000_1110
+};
+
+const unsigned char* hearts_8px_array_of_p[] = {
+    &hearts_8px[0], &hearts_8px[5], // heart, left_half_filled_heart
+    &hearts_8px[5] // solid_heart
+};
+
+const unsigned char hearts_8px_prop[] PROGMEM = {
+    H_SYMM + 9, 5,
+    H_SYMM + 9
+};
+
+const unsigned char hearts_8px_spacing = HEIGHT_SPACE_PX(8, 0); // pages = 0, spacing = 0 px
+
+const unsigned char* hearts_8px_prop_p = &hearts_8px_prop[0];
+const unsigned char* hearts_8px_spacing_p = &hearts_8px_spacing;
+
+////////////////////////////////////////////////////////////////////////
+const unsigned char signs_8px[] PROGMEM = {
+    b_0001_0000, // "-", offset 0
+    b_0001_0000,
+    //b_0001_0000,
+
+    b_0100_0000, // ".", offset 2
+
+    b_0000_0110, // "degree", offset 3
+    //b_0000_0110,
+
+    b_0011_1100, // "Celsius", offset 4
+    b_0100_0010,
+    b_0100_0010,
+    b_0010_0100,
+
+    b_0100_1100, // "%", offset 8
+    b_0010_1100,
+    b_0001_0000,
+    b_0110_1000,
+    b_0110_0100,
+
+    b_0000_0110, // "Voltage", offset 13
+    b_0011_1000,
+    b_0100_0000,
+    //b_0011_1000,
+    //b_0000_0110
+};
+
+const unsigned char* signs_8px_array_of_p[] = {
+    &signs_8px[0], &signs_8px[2], // minus, point
+    &signs_8px[3], &signs_8px[4], // degree, Celsius
+    &signs_8px[8], &signs_8px[13], // percent, Voltage
+};
+
+const unsigned char signs_8px_prop[] PROGMEM = {
+    H_SYMM + 3, 1,
+    H_SYMM + 2, 4,
+    5, H_SYMM + 5
+};
+
+const unsigned char signs_8px_spacing = HEIGHT_SPACE_PX(8, 1); // pages = 0, spacing = 1 px
+
+const unsigned char* signs_8px_prop_p = &signs_8px_prop[0];
+const unsigned char* signs_8px_spacing_p = &signs_8px_spacing;
+
+////////////////////////////////////////////////////////////////////////
+
+const unsigned char mix_24px[] PROGMEM = {
+    0xE0, 0x01, 0x00, // "heart", offset 0
+    0x38, 0x07, 0x00,
+    0x0C, 0x1C, 0x00,
+    0x06, 0x30, 0x00,
+    0x02, 0x60, 0x00,
+    0x03, 0xC0, 0x00,
+    0x01, 0x80, 0x01,
+    0x03, 0x00, 0x03,
+    0x02, 0x00, 0x02,
+    0x06, 0x00, 0x06,
+    0x0C, 0x00, 0x0C,
+    0x18, 0x00, 0x18,
+    // Symmetry data omitted
+
+    b_1110_0000, b_0000_0001, b_0000_0000, // "solid_heart", offset 36
+    b_1111_1000, b_0000_0111, b_0000_0000,
+    b_1111_1100, b_0001_1111, b_0000_0000,
+    b_1111_1110, b_0011_1111, b_0000_0000,
+    b_1111_1110, b_0111_1111, b_0000_0000,
+    b_1111_1111, b_1111_1111, b_0000_0000,
+    b_1111_1111, b_1111_1111, b_0000_0001,
+    b_1111_1111, b_1111_1111, b_0000_0011,
+    b_1111_1110, b_1111_1111, b_0000_0011,
+    b_1111_1110, b_1111_1111, b_0000_0111,
+    b_1111_1100, b_1111_1111, b_0000_1111,
+    b_1111_1000, b_1111_1111, b_0001_1111,
+    // Symmetry data omitted
+
+    0x80, 0x0F, 0x00, // "%", offset 72
+    0xC0, 0x3F, 0x00,
+    0x60, 0x60, 0x00,
+    0x60, 0x60, 0x00,
+    0x60, 0x60, 0x00,
+    0xE0, 0x30, 0x00,
+    0xC0, 0x3F, 0x38,
+    0x00, 0x0F, 0x0E,
+    0x00, 0x80, 0x03,
+    0x00, 0xE0, 0x00,
+    0x00, 0x38, 0x00,
+    0x00, 0x0E, 0x00,
+    0x80, 0x83, 0x07,
+    0xE0, 0xE0, 0x1F,
+    0x20, 0x60, 0x38,
+    0x00, 0x30, 0x30,
+    0x00, 0x30, 0x30,
+    0x00, 0x30, 0x30,
+    0x00, 0xE0, 0x1F,
+    0x00, 0xC0, 0x0F
+};
+
+const unsigned char* mix_24px_array_of_p[] = {
+    &mix_24px[0], &mix_24px[36], &mix_24px[72], // "heart", "solid_heart", "%"
+};
+
+const unsigned char mix_24px_prop[] PROGMEM = {
+    H_SYMM + 23, H_SYMM + 23, 20
+};
+
+const unsigned char mix_24px_spacing = HEIGHT_SPACE_PX(24, 0); // pages = 3, spacing = 0 px
+
+const unsigned char* mix_24px_prop_p = &mix_24px_prop[0];
+const unsigned char* mix_24px_spacing_p = &mix_24px_spacing;
+
+////////////////////////////////////////////////////////////////////////
+
+const unsigned char d0to3_32px[] PROGMEM = {
+    0x00, 0xFC, 0x7F, 0x00, // "0", offset 0
+    0x80, 0xFF, 0xFF, 0x03,
+    0xE0, 0xFF, 0xFF, 0x0F,
+    0xF0, 0x03, 0x80, 0x1F,
+    0xF0, 0x00, 0x00, 0x1E,
+    0x78, 0x00, 0x00, 0x3C,
+    0x38, 0x00, 0x00, 0x38,
+    0x38, 0x00, 0x00, 0x38,
+    0x38, 0x00, 0x00, 0x38,
+    //0x38, 0x00, 0x00, 0x38,
+    //0x38, 0x00, 0x00, 0x38,
+    //0x78, 0x00, 0x00, 0x3C,
+    //0xF8, 0x00, 0x00, 0x1E,
+    //0xF0, 0x03, 0x80, 0x1F,
+    //0xE0, 0xFF, 0xFF, 0x0F,
+    //0xC0, 0xFF, 0xFF, 0x07,
+    //0x00, 0xFE, 0xFF, 0x00,
+
+    0x80, 0x01, 0x00, 0x38, // "1", offset 36
+    0x80, 0x01, 0x00, 0x38,
+    0x80, 0x01, 0x00, 0x38,
+    0xC0, 0x01, 0x00, 0x38,
+    0xC0, 0x01, 0x00, 0x38,
+    0xE0, 0x01, 0x00, 0x38,
+    0xF8, 0xFF, 0xFF, 0x3F,
+    0xF8, 0xFF, 0xFF, 0x3F,
+    0xF8, 0xFF, 0xFF, 0x3F,
+    0x00, 0x00, 0x00, 0x38,
+    0x00, 0x00, 0x00, 0x38,
+    0x00, 0x00, 0x00, 0x38,
+    0x00, 0x00, 0x00, 0x38,
+    0x00, 0x00, 0x00, 0x38,
+
+    0x00, 0x00, 0x00, 0x3C, // "2", offset 92
+    0xF0, 0x00, 0x00, 0x3E,
+    0x70, 0x00, 0x00, 0x3F,
+    0x78, 0x00, 0x80, 0x3F,
+    0x38, 0x00, 0xC0, 0x3B,
+    0x38, 0x00, 0xE0, 0x39,
+    0x38, 0x00, 0xF0, 0x38,
+    0x38, 0x00, 0x78, 0x38,
+    0x38, 0x00, 0x3C, 0x38,
+    0x38, 0x00, 0x3E, 0x38,
+    0x38, 0x00, 0x1F, 0x38,
+    0x78, 0x80, 0x07, 0x38,
+    0xF8, 0xE0, 0x03, 0x38,
+    0xF0, 0xFF, 0x01, 0x38,
+    0xE0, 0xFF, 0x00, 0x38,
+    0xC0, 0x3F, 0x00, 0x38,
+    0x00, 0x00, 0x00, 0x38,
+
+    0x00, 0x00, 0x00, 0x1E, // "3", offset 160
+    0xF0, 0x00, 0x00, 0x1E,
+    0x70, 0x00, 0x00, 0x1C,
+    0x78, 0x00, 0x00, 0x3C,
+    0x38, 0x00, 0x00, 0x38,
+    0x38, 0x00, 0x00, 0x38,
+    0x38, 0xC0, 0x01, 0x38,
+    0x38, 0xC0, 0x01, 0x38,
+    0x38, 0xC0, 0x01, 0x38,
+    0x38, 0xC0, 0x01, 0x38,
+    0x38, 0xE0, 0x01, 0x38,
+    0x38, 0xE0, 0x01, 0x3C,
+    0x78, 0xF0, 0x03, 0x1E,
+    0xF0, 0x3F, 0x8F, 0x1F,
+    0xF0, 0x1F, 0xFF, 0x0F,
+    0xE0, 0x0F, 0xFE, 0x07,
+    0x00, 0x03, 0xF8, 0x01
+};
+
+const unsigned char d4to7_32px[] PROGMEM = {
+    0x00, 0x00, 0x3E, 0x00, // "4", offset 0
+    0x00, 0x00, 0x3F, 0x00,
+    0x00, 0x80, 0x3F, 0x00,
+    0x00, 0xC0, 0x3B, 0x00,
+    0x00, 0xE0, 0x39, 0x00,
+    0x00, 0x78, 0x38, 0x00,
+    0x00, 0x3C, 0x38, 0x00,
+    0x00, 0x1E, 0x38, 0x00,
+    0x80, 0x0F, 0x38, 0x00,
+    0xC0, 0x03, 0x38, 0x00,
+    0xE0, 0x01, 0x38, 0x00,
+    0xF0, 0x00, 0x38, 0x00,
+    0xF8, 0xFF, 0xFF, 0x3F,
+    0xF8, 0xFF, 0xFF, 0x3F,
+    0xF8, 0xFF, 0xFF, 0x3F,
+    0x00, 0x00, 0x38, 0x00,
+    0x00, 0x00, 0x38, 0x00,
+    0x00, 0x00, 0x38, 0x00,
+
+    0x00, 0x00, 0x00, 0x1E, // "5", offset 72
+    0xF8, 0xFF, 0x01, 0x1C,
+    0xF8, 0xFF, 0x00, 0x3C,
+    0xF8, 0xFF, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x01, 0x38,
+    0x38, 0xE0, 0x01, 0x3C,
+    0x38, 0xC0, 0x03, 0x1E,
+    0x38, 0xC0, 0x87, 0x1F,
+    0x38, 0x80, 0xFF, 0x0F,
+    0x38, 0x00, 0xFF, 0x07,
+    0x38, 0x00, 0xFC, 0x01,
+
+    0x00, 0xF0, 0x7F, 0x00, // "6", offset 136
+    0x00, 0xFE, 0xFF, 0x03,
+    0x00, 0xFF, 0xFF, 0x07,
+    0xC0, 0xBF, 0xE1, 0x0F,
+    0xE0, 0xC3, 0x01, 0x1E,
+    0xE0, 0xE1, 0x00, 0x3C,
+    0x70, 0xE0, 0x00, 0x38,
+    0x78, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x00, 0x38,
+    0x38, 0xE0, 0x01, 0x3C,
+    0x38, 0xE0, 0x03, 0x1E,
+    0x38, 0xC0, 0xFF, 0x0F,
+    0x00, 0x80, 0xFF, 0x07,
+    0x00, 0x00, 0xFF, 0x03,
+
+    0x38, 0x00, 0x00, 0x00, // "7", offset 204
+    0x38, 0x00, 0x00, 0x00,
+    0x38, 0x00, 0x00, 0x00,
+    0x38, 0x00, 0x00, 0x30,
+    0x38, 0x00, 0x00, 0x3C,
+    0x38, 0x00, 0x00, 0x3F,
+    0x38, 0x00, 0xC0, 0x1F,
+    0x38, 0x00, 0xF0, 0x07,
+    0x38, 0x00, 0xFC, 0x01,
+    0x38, 0x00, 0x7F, 0x00,
+    0x38, 0xC0, 0x1F, 0x00,
+    0x38, 0xF0, 0x07, 0x00,
+    0x38, 0xFC, 0x01, 0x00,
+    0x38, 0x7F, 0x00, 0x00,
+    0xF8, 0x1F, 0x00, 0x00,
+    0xF8, 0x07, 0x00, 0x00,
+    0xF8, 0x01, 0x00, 0x00
+};
+
+const unsigned char d8to9_32px[] PROGMEM = {
+    0x00, 0x07, 0xF8, 0x03, // "8", offset 0
+    0xC0, 0x1F, 0xFC, 0x07,
+    0xE0, 0x3F, 0xFE, 0x0F,
+    0xF0, 0x7F, 0x0F, 0x1F,
+    0x78, 0xF8, 0x03, 0x3C,
+    0x38, 0xF0, 0x01, 0x38,
+    0x18, 0xE0, 0x00, 0x38,
+    0x18, 0xE0, 0x01, 0x30,
+    0x18, 0xC0, 0x01, 0x30,
+    0x18, 0xC0, 0x03, 0x30, // Symmetry data may start from here
+    0x18, 0x80, 0x03, 0x38,
+    0x38, 0xC0, 0x03, 0x38,
+    0x78, 0xE0, 0x07, 0x3C,
+    0xF0, 0x78, 0x0F, 0x1E,
+    0xF0, 0x3F, 0xFE, 0x0F,
+    0xE0, 0x1F, 0xFE, 0x0F,
+    0x80, 0x0F, 0xF8, 0x03,
+
+    0x80, 0xFF, 0x00, 0x00, // "9", offset 68 (36)
+    0xC0, 0xFF, 0x03, 0x00,
+    0xE0, 0xFF, 0x07, 0x38,
+    0xF0, 0x80, 0x07, 0x38,
+    0x78, 0x00, 0x0F, 0x38,
+    0x38, 0x00, 0x0E, 0x38,
+    0x38, 0x00, 0x0E, 0x38,
+    0x38, 0x00, 0x0E, 0x38,
+    0x38, 0x00, 0x0E, 0x38,
+    0x38, 0x00, 0x0E, 0x3C,
+    0x38, 0x00, 0x0E, 0x1C,
+    0x78, 0x00, 0x0E, 0x1E,
+    0xF0, 0x00, 0x87, 0x0F,
+    0xF0, 0x03, 0xE7, 0x07,
+    0xE0, 0xFF, 0xFF, 0x03,
+    0xC0, 0xFF, 0xFF, 0x00,
+    0x00, 0xFE, 0x3F, 0x00
+};
+
+const unsigned char* d0to9_32px_array_of_p[] = {
+    &d0to3_32px[0], &d0to3_32px[36], &d0to3_32px[92], &d0to3_32px[160], // "0", "1", "2", "3"
+    &d4to7_32px[0], &d4to7_32px[72], &d4to7_32px[136], &d4to7_32px[204], // "4", "5", "6", "7"
+    &d8to9_32px[0], &d8to9_32px[68] // "8", "9"
+};
+
+const unsigned char d0to9_32px_prop[] PROGMEM = {
+    H_SYMM + 17, 14, 17, 17,
+    18, 16, 17, 17,
+    17, 17
+};
+
+const unsigned char d0to9_32px_spacing = HEIGHT_SPACE_PX(32, 3); // pages = 4, spacing = 3 px
+
+const unsigned char* d0to9_32px_prop_p = &d0to9_32px_prop[0];
+const unsigned char* d0to9_32px_spacing_p = &d0to9_32px_spacing;
+
+////////////////////////////////////////////////////////////////////////
+
+// Table of all font pointers and its properties pointers.
+// {pointer to the font's glyph pointer,
+//  pointer to the glyph's properties pointer,
+//  pointer to the glyph's spacing pointer}
+const unsigned char** fonts_set_pp[] = {
+    &glyph_8px_array_of_p[0], &glyph_8px_prop_p, &glyph_8px_spacing_p,
+    &hearts_8px_array_of_p[0], &hearts_8px_prop_p, &hearts_8px_spacing_p,
+    &signs_8px_array_of_p[0], &signs_8px_prop_p, &signs_8px_spacing_p,
+    &mix_24px_array_of_p[0], &mix_24px_prop_p, &mix_24px_spacing_p,
+    &d0to9_32px_array_of_p[0], &d0to9_32px_prop_p, &d0to9_32px_spacing_p
+};
+
+/*
+Images that doesn't fit into 128 bytes should be stored
+and rendered in parts (from the top to the bottom, from left to right).
+For example, 64x64 image (512 bytes) can be stored as 4 custom glyphs of 64x16 (preferable).
+
+The maximum area that the screen_buff (128 bytes + 2 for TWI transfer) can
+hold is:
+   h x w
+1) 64x16 pixels - vertical scan, starting at top left;
+   56x18 (+ 16 free)
+   48x21 (+ 16 free)
+   40x25 (+ 24 free)
+   32x32
+   24x42 (+ 16 free)
+   16x64
+   8x128
+2) 8x128 pixels - horizontal scan or page scan, starting at left.
+*/
+
+#endif // FONTS_SYMBOLS_H_INCLUDED

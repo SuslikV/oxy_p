@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="25mm"
+   height="10mm"
+   viewBox="0 0 25 10"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="oxy_p_emblem.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.8"
+     inkscape:cx="2.3860931"
+     inkscape:cy="14.264692"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1280"
+     inkscape:window-height="962"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-28.855151,-60.912706)">
+    <g
+       id="g10672"
+       transform="matrix(0.58862431,0,0,0.58862431,-19.165375,-69.792766)">
+      <g
+         transform="translate(4.6720131,2.9651016)"
+         id="g10668">
+        <rect
+           style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.98435545;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+           id="rect10656"
+           width="40.487556"
+           height="15.00441"
+           x="77.901108"
+           y="220.07953"
+           rx="5.0609951"
+           ry="5.0014696" />
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="86.669136"
+           y="231.02214"
+           id="text10662"><tspan
+             sodipodi:role="line"
+             id="tspan10660"
+             x="86.669136"
+             y="231.02214"
+             style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:11.49467564px;font-family:Arial;-inkscape-font-specification:'Arial Heavy';stroke-width:0.26458332">O<tspan
+   id="tspan10658"
+   style="font-size:11.49467564px;fill:#ffffff">_</tspan>p</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:16.93333244px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="95.948532"
+           y="225.61659"
+           id="text10666"><tspan
+             sodipodi:role="line"
+             id="tspan10664"
+             x="95.948532"
+             y="225.61659"
+             style="font-style:normal;font-variant:normal;font-weight:900;font-stretch:normal;font-size:4.4979167px;font-family:Arial;-inkscape-font-specification:'Arial Heavy';stroke-width:0.26458332">XY</tspan></text>
+      </g>
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path10670"
+         d="m 100.18405,233.70026 c 2.12552,0.87776 3.94616,0.87099 6.07267,0"
+         style="fill:none;stroke:#000000;stroke-width:0.99166667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+  </g>
+</svg>

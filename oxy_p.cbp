@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="oxy_p" />
+		<Option pch_mode="2" />
+		<Option compiler="avr-gcc" />
+		<Build>
+			<Target title="Release">
+				<Option output="bin/Release/oxy_p.elf" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="5" />
+				<Option compiler="avr-gcc" />
+				<Compiler>
+					<Add option="-Os" />
+				</Compiler>
+			</Target>
+			<Environment>
+				<Variable name="MCU" value="atmega88pa" />
+			</Environment>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-mmcu=atmega88pa" />
+			<Add option="-DF_CPU=8000000UL" />
+		</Compiler>
+		<Linker>
+			<Add option="-mmcu=atmega88pa" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="avr-size $(TARGET_OUTPUT_FILE)" />
+			<Add after='cmd /c &quot;avr-objdump -h -S $(TARGET_OUTPUT_FILE) &gt; $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lss&quot;' />
+			<Add after="avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hex" />
+			<Add after="avr-objcopy --no-change-warnings -j .eeprom --change-section-lma .eeprom=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).eep" />
+			<Mode after="always" />
+		</ExtraCommands>
+		<Unit filename="../oxy_p/MAX30102_approx.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../oxy_p/MAX30102_sensor.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../oxy_p/MAX30102_sensor.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../oxy_p/SSD1306_display.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../oxy_p/SSD1306_display.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../oxy_p/TWI_Master.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../oxy_p/TWI_Master.h" />
+		<Unit filename="../oxy_p/b_easy_bits.h" />
+		<Unit filename="../oxy_p/fonts_symbols.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../oxy_p/global_def.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../oxy_p/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../oxy_p/pins_config.h" />
+		<Unit filename="../oxy_p/short_uint_to_string.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../oxy_p/short_uint_to_string.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Unit filename="../oxy_p/usart_for_debug.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../oxy_p/usart_for_debug.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
