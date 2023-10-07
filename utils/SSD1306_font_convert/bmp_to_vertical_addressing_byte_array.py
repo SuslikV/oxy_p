@@ -88,7 +88,7 @@ print("W: {}".format(image_width))
 print("H: {}".format(image_height))
 
 # For indexed color formats analyze index number rather than actual color.
-# Assuming that background colors lies at lower indexes than this number.
+# Assuming that the background color stored at index that is lower than this number.
 white_pixel_threshold = 1
 
 # Array element size in bits
@@ -97,7 +97,7 @@ elem_size = 8 * 1
 elem = 0
 bit_pow = 0
 
-# Ease human perception of data set for per page display outputs (vertical mode)
+# Ease human perception of the data set for per page outputs
 easy_bits = [
     'b_0000_0000', 'b_0000_0001', 'b_0000_0010', 'b_0000_0011', 'b_0000_0100', 'b_0000_0101', 'b_0000_0110', 'b_0000_0111',
     'b_0000_1000', 'b_0000_1001', 'b_0000_1010', 'b_0000_1011', 'b_0000_1100', 'b_0000_1101', 'b_0000_1110', 'b_0000_1111',
@@ -133,10 +133,10 @@ easy_bits = [
     'b_1111_1000', 'b_1111_1001', 'b_1111_1010', 'b_1111_1011', 'b_1111_1100', 'b_1111_1101', 'b_1111_1110', 'b_1111_1111',
 ]
 
-# Full picture maket in RAM as strings (expected max of 64 lines)
+# Maket of the picture, whole in the RAM, here - as strings (expected max of 64 lines)
 art_byte = [""] * image_height
 
-# Full byte array maket in RAM as strings (expected max of 128 / elem_size lines)
+# Maket of the byte array, whole in the RAM, here - as strings (expected max of 128 / elem_size lines)
 byte_array = [""] * image_width
 byte_array_idx = 0
 
@@ -158,7 +158,7 @@ for col in range (0, image_width, 1):
         else:
             byte_R = 0
 
-		# Building byte. LBS at bottom because BMP starts from bottom.
+        # Building byte. LBS at bottom because BMP starts from bottom.
         elem = elem + round(byte_R * 2 ** bit_pow)
         bit_pow = bit_pow + 1
 
