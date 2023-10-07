@@ -40,8 +40,8 @@ that device was powered off.
 "Heart" becomes filled.
  * To switch device into "Heart rate" mode: hold Button 1 more than 1 sec. Big
 "Heart" becomes empty.
- * To increase current of the LEDs ("brightness") press Button 2.
- * To decrease current of the LEDs ("brightness") press Button 1.
+ * To increase current of the sensor's LEDs ("brightness") press Button 2.
+ * To decrease current of the sensor's LEDs ("brightness") press Button 1.
  * To switch scale of the measurements: hold Button 2 more than 1 sec while in
 "SpO2 + HR" mode.
 
@@ -144,36 +144,38 @@ Thus, the array[1] -> points to the sample N1 of the type "unsigned short int".
 #### Display driver logic
 ATmega88PA driver for the screen based on SSD1306.
 
-The display driver capable to handle proportional fonts.
+The display driver is capable to handle proportional fonts.
 The display driver works only with 1-bit depth bitmaps.
+The height of the bitmap images is a multiple of 8 (page size).
 
 The data that represents each font are stored in byte arrays of:
-- images(glyhps) itself,
-- pointers to the start of each image,
-- images properties,
-- spacing properties.
+- images(pictures of the glyhps);
+- pointers to the start of each image;
+- width and symmetry;
+- height and spacing properties for sets of images.
+
 All these arrays organized into a single array of pointers that represents all
 available images that intended for display.
 
 To reduce storage space for the glyphs, each image has horizontal symmetry
 property and can be stored half-sized.
 
-To be able to display a string of symbols on the screen the display driver
+To be able to show a string of symbols on the screen the display driver
 requires next info:
 - the font's number (selected font);
 - pointer to the array where each position represents ordered number
 of the glyph from the font set. Note: special fixed position (DIS_STR_NOD)
 of the array stores total number of the elements in the string;
 - start/end column and start page of the area intended for display;
-- horizontal alignment of the displayed string in the displayed area (effect);
+- horizontal alignment of the displayed string in the displayed area (effect).
 
 During the string display next steps performed:
 1. Resolves the font and properties pointers.
 2. Calculates length of the sting in pixels.
 3. Blanks display area left to the string (depends on string alignment).
 4. The string splits into characters. Each character draws separately.
-   - 4.1. Calculates stored data length of the each character according to the
-   its symmetry.
+   - 4.1. Calculates stored data length of the each character according to its
+   symmetry.
    - 4.2. Displays spacing before the current character (TWI).
    - 4.3. Fills the buffer with stored data of the glyph image (half of the
    image or full image).
@@ -200,7 +202,7 @@ is sum of available quarters multiplied by weight of the quarter:
 15 sec -> 4/1;
 30 sec -> 4/2;
 45 sec -> 4/3;
-60 sec -> 4/4;
+60 sec -> 4/4.
 Heart rate monitor renders normal photoplethysmogram about 4 sec long (blood
 rich areas highlighted).
 
@@ -266,8 +268,8 @@ Fist letter is capital (in most cases). Pronounce "`äksə-pi".
 # Why?
 It was designed to be part of some trashy DIY YouTube video.
 Originally, only heart rate was in the scope of interest (with self-made
-sensor). But I was late. Feb come... So, project was frozen - all DIY dreams
-were gone. But TWI driver was written, programmer was made, screen driver
+sensor). But I was late. Feb came... So, project was frozen - all DIY dreams
+disappeared. But TWI driver was written, programmer was made, screen driver
 complete.
 
 # License
