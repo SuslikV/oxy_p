@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="40mm"
+   height="40mm"
+   viewBox="0 0 40 40"
    version="1.1"
    id="svg8"
    inkscape:version="0.92.1 r15371"
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="314.91189"
-     inkscape:cy="935.80969"
+     inkscape:zoom="4"
+     inkscape:cx="75.258304"
+     inkscape:cy="67.688088"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -36,7 +36,11 @@
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:snap-global="true" />
+     inkscape:snap-global="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -45,21 +49,22 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-60.748809,-29.325355)">
     <rect
-       style="opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       style="opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
        id="rect4485"
-       width="98.273804"
-       height="49.136902"
-       x="33.221664"
-       y="25.005514"
+       width="40"
+       height="40"
+       x="60.74881"
+       y="29.325356"
        inkscape:export-xdpi="317.49979"
        inkscape:export-ydpi="317.49979" />
     <rect
@@ -4122,7 +4127,7 @@
          transform="scale(0.85205015,1.1736398)"><tspan
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:1.13784778px;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:end;letter-spacing:0.02645833px;text-anchor:end;fill:#ffffff;stroke-width:0.04741034"
            y="44.023994"
-           x="88.500694"
+           x="88.527153"
            id="tspan7760"
            sodipodi:role="line">255</tspan></text>
     </g>
