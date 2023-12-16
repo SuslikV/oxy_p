@@ -45,7 +45,7 @@ that device was powered off.
  * To switch scale of the measurements: hold Button 2 more than 1 sec while in
 "SpO2 + HR" mode.
 
-The scale indicator located on top of the screen and has next meaning:
+The scale indicator located at top of the screen and has next meaning:
  + no_heart symbol - 2048 nA;
  + empty_heart - 4096 nA;
  + half-filled - 8192 nA;
@@ -67,7 +67,7 @@ The main program written in C for ATmega AVR (MCU ATmega88PA).
 TWI (I2C compatible) bus is used for communication between modules and MCU.
 MCU running in Master mode for TWI bus, sensor and display are Slave devices.
 TWI transfers are interrupt driven. The implementation is based on heavily
-modified AN2480 (AVR315: Using the TWI Module as I2C Master) document. Main
+modified AN2480 ("AVR315: Using the TWI Module as I2C Master") document. Main
 difference from the base code is the ability to handle REPEATED START signal
 and send STOP with forced timeout.
 
@@ -76,7 +76,7 @@ of the TWI bus allocates buffer of 130 bytes for internal use. MCU prepares
 data that needs to be sent. Driver buffers this data and starts asynchronous
 transfer. If new transfer requested from MCU, driver waits until previous
 transfer will complete. If transfer stalled - driver resets the TWI hardware
-block of the MCU. Important messages re-sends automatically in case of bus
+block of the MCU. Important messages are resend automatically in case of bus
 failures.
 
 #### Big-endian vs Little-endian
@@ -93,8 +93,7 @@ byte2 = [ 13, 12, 11, 10,  9,  8,  7,  6]
 byte3 = [  5,  4,  3,  2,  1,  0,  -,  -]
 ```
 
-Here MCU buffer represents byte data obtained from the sensor that is running
-in the HR mode.
+MCU buffer byte data obtained from the sensor that is running in the HR mode:
 ```
     array[x, b1, b2, b3, b1, b2, b3, ...]
              |sample1 |  |sample2 |
@@ -149,7 +148,7 @@ The display driver works only with 1-bit depth bitmaps.
 The height of the bitmap images is a multiple of 8 (page size).
 
 The data that represents each font are stored in byte arrays of:
-- images(pictures of the glyhps);
+- images (pictures of the glyhps);
 - pointers to the start of each image;
 - width and symmetry;
 - height and spacing properties for sets of images.
@@ -171,7 +170,7 @@ of the array stores total number of the elements in the string;
 
 During the string display next steps performed:
 1. Resolves the font and properties pointers.
-2. Calculates length of the sting in pixels.
+2. Calculates length of the string in pixels.
 3. Blanks display area left to the string (depends on string alignment).
 4. The string splits into characters. Each character draws separately.
    - 4.1. Calculates stored data length of the each character according to its
@@ -253,7 +252,7 @@ matrix, stabilizers, filters etc) x1
 - Board: DIY PCB 50x25x1mm (see `oxy_p_main_board` dir in archives) x1
 - Sensor communication board: DIY PCB 35x15x1mm (see `pulse_sensor_board` dir
 in archives) x1
-- Programmer: DIY programmer for ATmega AVR (see avr_prog_gs in archives) x1
+- Programmer: DIY programmer for ATmega AVR (see `avr_prog_gs` in archives) x1
 - Capacitors: 0805 0.1u x2
 - Resistors: 0805 10k x3, 47k x1, 100k x1; 1206 0R x2
 - Transistors: SOT-23 p-n-p BC857C x1; SO-8 n-ch(2) IRF7103 x1
@@ -263,7 +262,7 @@ in archives) x1
 
 # The name meaning
 "Oxy_p" stands for "**OXY**gen saturation and **P**ulse monitor".
-Fist letter is capital (in most cases). Pronounce "`äksə-pi".
+First letter is capital (in most cases). Pronounce "`äksə-pi".
 
 # Why?
 It was designed to be part of some trashy DIY YouTube video.
